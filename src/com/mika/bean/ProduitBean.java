@@ -7,6 +7,7 @@ public class ProduitBean {
 	private double pVenteb;
 	private int stockb;
 	private Integer fournisseurb;
+	private String nomFournisseur;
 	
 	public Integer getCodeProduitb() {
 		return codeProduitb;
@@ -43,6 +44,12 @@ public class ProduitBean {
 	}
 	public void setFournisseurb(Integer fournisseurb) {
 		this.fournisseurb = fournisseurb;
+	}
+	public String getNomFournisseur() {
+		return nomFournisseur;
+	}
+	public void setNomFournisseur(String nomFournisseur) {
+		this.nomFournisseur = nomFournisseur;
 	}
 	
 	

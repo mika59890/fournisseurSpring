@@ -24,10 +24,10 @@
 							<td><c:out value="${produit.designationb}"/></td>
 							<td><c:out value="${produit.pAchatb}"/></td>
 							<td><c:out value="${produit.pVenteb}"/></td>
-							<td><c:if test = "${produit.fournisseurb == fournisseur.idF}">
-							<c:out value="${fournisseur.enseigne}"/>
+							<td><c:out value="${produit.stockb}"/></td>
+							<c:if test = "${produit.fournisseurb == fournisseur.idF}">selected
 							</c:if>
-							</td>
+							<td><c:out value="${produit.fournisseurb}"/></td>
 							<td><a class="noir" href="editP.html?codeProduitb=${produit.codeProduitb}">Modifier</a> | <a class="noir" href="deleteP.html?codeProduitb=${produit.codeProduitb}">Supprimer</a></td>
 						</tr>
 					</c:forEach>

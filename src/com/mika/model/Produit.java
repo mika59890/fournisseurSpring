@@ -34,7 +34,10 @@ public class Produit implements Serializable{
 	
 	@Column(name = "fournid")
 	private Integer prodFournisseur;
-
+	
+	@Column(name = "nomfourn")
+	private String prodNomFournisseur;
+	
 	public Integer getProdCodeProduit() {
 		return prodCodeProduit;
 	}
@@ -81,6 +84,14 @@ public class Produit implements Serializable{
 
 	public void setProdFournisseur(Integer prodFournisseur) {
 		this.prodFournisseur = prodFournisseur;
+	}
+
+	public String getProdNomFournisseur() {
+		return prodNomFournisseur;
+	}
+
+	public void setProdNomFournisseur(String prodNomFournisseur) {
+		this.prodNomFournisseur = prodNomFournisseur;
 	}
 	
 	

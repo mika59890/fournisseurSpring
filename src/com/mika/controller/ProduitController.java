@@ -37,7 +37,9 @@ public class ProduitController {
             //Traitement de l'erreur
 			return new ModelAndView("redirect:/addP.html");
        }
+		System.out.println(produitBean.getNomFournisseur());
 		Produit produit = prepareModelProduit(produitBean);
+		produit.getProdNomFournisseur();
 		produitService.addProduit(produit);
 		return new ModelAndView("redirect:/addP.html");
 	}
@@ -52,7 +54,6 @@ public class ProduitController {
 	public ModelAndView addProduit(@ModelAttribute("produitBean")  ProduitBean produitBean,
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		
 		model.put("produits",  prepareListofBean(produitService.listProduits()));
 		model.put("fournisseurs",  prepareListofBeanF(fournisseurService.listFournisseurs()));
 		return new ModelAndView("addProduit", model);
@@ -60,7 +61,6 @@ public class ProduitController {
 	@RequestMapping(value = "/deleteP", method = RequestMethod.GET)
 	public ModelAndView editProduit(@ModelAttribute("produitBean") ProduitBean produitBean,
 			BindingResult result) {
-		System.out.println(produitBean.getCodeProduitb());
 		produitService.deleteProduit(prepareModelProduit(produitBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("produit", null);
@@ -85,6 +85,7 @@ public class ProduitController {
 		produit.setProdPVente(produitBean.getpVenteb());
 		produit.setProdStock(produitBean.getStockb());
 		produit.setProdFournisseur(produitBean.getFournisseurb());
+		produit.setProdNomFournisseur(produitBean.getNomFournisseur());
 		produitBean.setCodeProduitb(null);
 		return produit;
 	}
@@ -101,6 +102,7 @@ public class ProduitController {
 				bean.setpVenteb(produit.getProdPVente());
 				bean.setStockb(produit.getProdStock());
 				bean.setFournisseurb(produit.getProdFournisseur());
+				bean.setNomFournisseur(produit.getProdNomFournisseur());
 				beans.add(bean);
 			}
 		}
@@ -114,6 +116,7 @@ public class ProduitController {
 		bean.setpVenteb(produit.getProdPVente());
 		bean.setStockb(produit.getProdStock());
 		bean.setFournisseurb(produit.getProdFournisseur());
+		bean.setNomFournisseur(produit.getProdNomFournisseur());
 		return bean;
 	}
 	private List<FournisseurBean> prepareListofBeanF(List<Fournisseur> fournisseurs){
