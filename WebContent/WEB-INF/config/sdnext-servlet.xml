@@ -16,7 +16,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
 	<context:property-placeholder location="classpath:resources/database.properties" />
 	<context:component-scan base-package="com.mika" />
-
+	<context:annotation-config/>
 	<tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
 
 	<bean id="jspViewResolver"
@@ -42,6 +42,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 			<list>
 				<value>com.mika.model.Employee</value>
 				<value>com.mika.model.Fournisseur</value>
+				<value>com.mika.model.Produit</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

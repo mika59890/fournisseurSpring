@@ -34,7 +34,6 @@ public class FournisseurController {
 		
 		Fournisseur fournisseur = prepareModelFournisseur(fournisseurBean);
 		fournisseurService.addFournisseur(fournisseur);
-		System.out.println(fournisseur.getFournId());
 		return new ModelAndView("redirect:/addF.html");
 	}
 	@RequestMapping(value="/fournisseurs", method = RequestMethod.GET)
@@ -50,17 +49,20 @@ public class FournisseurController {
 		model.put("fournisseurs",  prepareListofBean(fournisseurService.listFournisseurs()));
 		return new ModelAndView("addFournisseur", model);
 	}
-	@RequestMapping(value = "/deleteFournisseur", method = RequestMethod.GET)
-	public ModelAndView editFournisseur( FournisseurBean fournisseurBean,
+	@RequestMapping(value = "/deleteF", method = RequestMethod.GET)
+	public ModelAndView editFournisseur(@ModelAttribute("fournisseurBean") FournisseurBean fournisseurBean,
 			BindingResult result) {
+		System.out.println(fournisseurBean.getIdF());
 		fournisseurService.deleteFournisseur(prepareModelFournisseur(fournisseurBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("fournisseur", null);
 		model.put("fournisseurs",  prepareListofBean(fournisseurService.listFournisseurs()));
+		System.out.println(fournisseurBean.getIdF());
 		return new ModelAndView("fournisseursList", model);
+		
 	}
-	@RequestMapping(value = "/editFournisseur", method = RequestMethod.GET)
-	public ModelAndView deleteFournisseur( FournisseurBean fournisseurBean,
+	@RequestMapping(value = "/editF", method = RequestMethod.GET)
+	public ModelAndView deleteFournisseur(@ModelAttribute("fournisseurBean") FournisseurBean fournisseurBean,
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("fournisseur", prepareFournisseurBean(fournisseurService.getFournisseur(fournisseurBean.getIdF())));

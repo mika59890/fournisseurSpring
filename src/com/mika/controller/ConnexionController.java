@@ -3,6 +3,8 @@ package com.mika.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +33,18 @@ public class ConnexionController {
 	public ModelAndView connexion() {
 		return new ModelAndView("connexion");
 	}
-	@RequestMapping(value = "/accueil", method = RequestMethod.POST)
+    @RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
+	public ModelAndView deconnexion() {
+    	
+		return new ModelAndView("connexion");
+	}
+    
+    
+    @RequestMapping(value = "/acc", method = RequestMethod.GET )
+	public ModelAndView logo() {
+    	return new ModelAndView("accueil");
+    }	
+	@RequestMapping(value = "/accueil", method = RequestMethod.POST )
 	public ModelAndView connexion(@ModelAttribute("command") EmployeeBean employee, 
 			BindingResult result) throws Exception {
 		erreurs.clear();
@@ -55,16 +68,12 @@ public class ConnexionController {
         } else {
             resultat = "Échec de la connexion.";
         }
-		System.out.println("mail :"+email +" pass :"+password+" erreurs :"+erreurs);
 		return new ModelAndView("connexion");
-    
 	}
 	private static String getValeurChamp( String nomChamp ) {
         if ( nomChamp == null || nomChamp.trim().length() == 0 ) {
-        	System.out.println(nomChamp.trim().length());
             return null;
         } else {
-        	System.out.println(nomChamp.trim().length());
             return nomChamp;
         }
     }

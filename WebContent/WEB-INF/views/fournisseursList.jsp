@@ -30,7 +30,7 @@
 							<td><c:out value="${fournisseur.telephone}"/></td>
 							<td><c:out value="${fournisseur.email}"/></td>
 							<td><c:out value="${fournisseur.siret}"/></td>
-							<td><a class="noir" href="editFournisseur.html?id=${fournisseur.idF}">Modifier</a> | <a class="noir" href="deleteFournisseur.html?id=${fournisseur.idF}">Supprimer</a></td>
+							<td><a class="noir" href="editF.html?idF=${fournisseur.idF}">Modifier</a> | <a class="noir" href="deleteF.html?idF=${fournisseur.idF}">Supprimer</a></td>
 						</tr>
 					</c:forEach>
 				</c:if>

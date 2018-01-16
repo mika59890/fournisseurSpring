@@ -82,6 +82,4 @@ public class Fournisseur implements Serializable{
 	public void setFournSiret(String fournSiret) {
 		this.fournSiret = fournSiret;
 	}
-	
-	
 }

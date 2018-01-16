@@ -57,6 +57,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView editEmployee(@ModelAttribute("utilisateur")  EmployeeBean employeeBean,
 			BindingResult result) {
+		System.out.println(employeeBean.getId());
 		employeeService.deleteEmployee(prepareModel(employeeBean));
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("employee", null);

@@ -72,16 +72,25 @@ caption{
     color: #0568CD;
 }
 /*EN-TETE*/
-header{
+header {
 	background-color:#c0c0c0;
+	margin-bottom: 20px;
+	display: flex;
+}
+nav{
 	padding-top: 20px;
 	padding-bottom: 20px;
-	margin-bottom: 20px;
-	
+	display: flex;
+}
+nav ul{
+	list-style-type: none; 
 }
 header a , a link{
 	color : #0568CD;
 	text-decoration: none;
 	margin : 1.5em;
 	
+}
+header img{
+	width: 35%;
 }
