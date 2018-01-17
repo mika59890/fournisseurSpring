@@ -23,7 +23,7 @@
 					<c:forEach items="${fournisseurs}" var="fournisseur">
 						<tr>
 							<td><c:out value="${fournisseur.idF}"/></td>
-							<td><c:out value="${fournisseur.enseigne}"/></td>
+							<td><a class="noir" href="editProduitFournisseur.html?idF=${fournisseur.idF}"  title="Afficher les articles de ${fournisseur.enseigne}"><c:out value="${fournisseur.enseigne}"/></a></td>
 							<td><c:out value="${fournisseur.adresse}"/></td>
 							<td><c:out value="${fournisseur.codePostal}"/></td>
 							<td><c:out value="${fournisseur.ville}"/></td>

@@ -22,3 +22,7 @@
 		
 	</nav>
 </header>
+<c:if test="${!empty sessionScope.sessionEmail}">
+                    <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+                    <p class="succes">Vous êtes connecté(e) avec l'adresse : ${sessionScope.sessionEmail.empEmail}</p>
+                </c:if>

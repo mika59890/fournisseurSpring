@@ -40,8 +40,15 @@
 				</form:select>
 				<span class="erreur" id="fournisseurJQuery"></span>
 				<br>
+				<c:if test="${produit.codeProduitb == null}">
 				<input type="submit" value="Valider" id="envoiProduit" class="sansLabel"/>
+				</c:if>
+				<c:if test="${produit.codeProduitb != null}">
+				<input type="submit" value="Modifier" id="envoiProduit" class="sansLabel"/>
+				<form:button><a class="noir" href="deleteP.html?codeProduitb=${produit.codeProduitb}">Supprimer</a></form:button>
+				</c:if>
 				<br>
+				
 			</fieldset>					
 		</form:form>
 	</body>

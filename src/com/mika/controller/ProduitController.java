@@ -29,6 +29,8 @@ public class ProduitController {
 	@Autowired
 	private FournisseurService fournisseurService;
 	
+	
+	
 	@RequestMapping(value = "/saveProduit", method = RequestMethod.POST)
 	public ModelAndView saveProduit(@ModelAttribute("produitBean") ProduitBean produitBean, 
 			BindingResult result) {
@@ -37,9 +39,8 @@ public class ProduitController {
             //Traitement de l'erreur
 			return new ModelAndView("redirect:/addP.html");
        }
-		System.out.println(produitBean.getNomFournisseur());
+		
 		Produit produit = prepareModelProduit(produitBean);
-		produit.getProdNomFournisseur();
 		produitService.addProduit(produit);
 		return new ModelAndView("redirect:/addP.html");
 	}
@@ -72,6 +73,7 @@ public class ProduitController {
 	public ModelAndView deleteProduit(@ModelAttribute("produitBean") ProduitBean produitBean,
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
+		
 		model.put("produit", prepareProduitBean(produitService.getProduit(produitBean.getCodeProduitb())));
 		model.put("produits",  prepareListofBean(produitService.listProduits()));
 		model.put("fournisseurs",  prepareListofBeanF(fournisseurService.listFournisseurs()));
@@ -138,5 +140,17 @@ public class ProduitController {
 			}
 		}
 		return beans;
+	}
+	private FournisseurBean prepareFournisseurBean(Fournisseur fournisseur){
+		FournisseurBean bean = new FournisseurBean();
+		bean.setIdF(fournisseur.getFournId());
+		bean.setEnseigne(fournisseur.getFournEnseigne());
+		bean.setAdresse(fournisseur.getFournAdresse());
+		bean.setCodePostal(fournisseur.getFournCodePostal());
+		bean.setVille(fournisseur.getFournVille());
+		bean.setTelephone(fournisseur.getFournTelephone());
+		bean.setEmail(fournisseur.getFournEmail());
+		bean.setSiret(fournisseur.getFournSiret());
+		return bean;
 	}
 }

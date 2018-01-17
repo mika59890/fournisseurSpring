@@ -3,6 +3,7 @@ package com.mika.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mika.bean.EmployeeBean;
+import com.mika.model.Employee;
 
 @Controller
 public class ConnexionController {
@@ -34,8 +36,9 @@ public class ConnexionController {
 		return new ModelAndView("connexion");
 	}
     @RequestMapping(value = "/deconnexion", method = RequestMethod.GET)
-	public ModelAndView deconnexion() {
-    	
+	public ModelAndView deconnexion(HttpServletRequest request) {
+    	HttpSession session = request.getSession();
+    	session.invalidate();
 		return new ModelAndView("connexion");
 	}
     
@@ -45,11 +48,14 @@ public class ConnexionController {
     	return new ModelAndView("accueil");
     }	
 	@RequestMapping(value = "/accueil", method = RequestMethod.POST )
-	public ModelAndView connexion(@ModelAttribute("command") EmployeeBean employee, 
-			BindingResult result) throws Exception {
+	public ModelAndView connexion(@ModelAttribute("command") EmployeeBean employeeBean, 
+			BindingResult result , HttpServletRequest request) throws Exception {
 		erreurs.clear();
-		String email = getValeurChamp(employee.getEmail());
-		String password = getValeurChamp(employee.getPassword());
+		Employee employee = new Employee();
+		employee.setEmpEmail(employeeBean.getEmail());
+		employee.setEmpPassword(employeeBean.getPassword());
+		String email = getValeurChamp(employee.getEmpEmail());
+		String password = getValeurChamp(employee.getEmpPassword());
 		/* Validation du champ email. */
         try {
             validationEmail( email );
@@ -63,8 +69,10 @@ public class ConnexionController {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
 		if ( erreurs.isEmpty() ) {
+			HttpSession session = request.getSession();
+			session.setAttribute( "sessionEmail", employee );
             resultat = "Succès de la connexion.";
-            return new ModelAndView("accueil");
+            return new ModelAndView("accueil"," ",employee);
         } else {
             resultat = "Échec de la connexion.";
         }
