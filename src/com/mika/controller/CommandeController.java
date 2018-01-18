@@ -40,6 +40,11 @@ public class CommandeController {
 		model.put("produits",  prepareListofBean(produitService.listProduits()));
 		return new ModelAndView("produitsListFournisseur",model);
 	}
+	@RequestMapping(value="/ajoutPanier", method = RequestMethod.POST)
+	public ModelAndView ajoutPanier() {
+		
+		return new ModelAndView("panier");
+	}
 	@RequestMapping(value="/editCommande", method = RequestMethod.GET)
 	public ModelAndView affichageCommande() {
 		return new ModelAndView("commande");
