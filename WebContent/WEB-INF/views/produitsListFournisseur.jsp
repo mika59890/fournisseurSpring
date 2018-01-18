@@ -20,7 +20,7 @@
 				<c:forEach items="${produits}" var="produit">
 					<c:if test="${fournisseur.idF == produit.fournisseurb}">
 						<tr>
-						<form:form method="POST" modelAttribute="panier" action="ajoutPanier.html">
+						<form:form method="POST" modelAttribute="panier" action="savePanier.html">
 							<td><c:out value="${produit.codeProduitb}"/></td>
 							<td><c:out value="${produit.designationb}"/></td>
 							<td><c:out value="${produit.pAchatb}"/></td>

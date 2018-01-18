@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mika.bean.FournisseurBean;
+import com.mika.bean.PanierBean;
 import com.mika.bean.ProduitBean;
 import com.mika.model.Fournisseur;
+import com.mika.model.Panier;
 import com.mika.model.Produit;
 import com.mika.service.FournisseurService;
+import com.mika.service.PanierService;
 import com.mika.service.ProduitService;
 
 @Controller
@@ -29,20 +32,37 @@ public class CommandeController {
 	@Autowired
 	private FournisseurService fournisseurService;
 	
-	//@Autowired
-	//private CommandeService commandeService;
+	@Autowired
+	private PanierService panierService;
+	
+	@RequestMapping(value = "/savePanier", method = RequestMethod.POST)
+	public ModelAndView savePanier(@ModelAttribute("panier") PanierBean panierBean, 
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+            //Traitement de l'erreur
+			return new ModelAndView("redirect:/panier.html");
+       }
+		System.out.println(panierBean.getCodeProduitpb());
+		
+		Panier panier = prepareModel(panierBean);
+		panierService.addPanier(panier);
+		return new ModelAndView("redirect:/ajoutPanier.html");
+	}
 	
 	@RequestMapping(value="/editProduitFournisseur", method = RequestMethod.GET)
 	public ModelAndView listProduitsParFournisseur(@ModelAttribute("fournisseurBean") FournisseurBean fournisseurBean,
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("fournisseur", prepareFournisseurBean(fournisseurService.getFournisseur(fournisseurBean.getIdF())));
-		model.put("produits",  prepareListofBean(produitService.listProduits()));
+		model.put("produits",  prepareListofBeanProduit(produitService.listProduits()));
 		return new ModelAndView("produitsListFournisseur",model);
 	}
-	@RequestMapping(value="/ajoutPanier", method = RequestMethod.POST)
-	public ModelAndView ajoutPanier() {
-		
+	@RequestMapping(value="/ajoutPanier", method = RequestMethod.GET)
+	public ModelAndView ajoutPanier(@ModelAttribute("panier") PanierBean panierBean,
+			BindingResult result) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("paniers",  prepareListofBeanPanier(panierService.listPaniers()));
 		return new ModelAndView("panier");
 	}
 	@RequestMapping(value="/editCommande", method = RequestMethod.GET)
@@ -62,7 +82,7 @@ public class CommandeController {
 		bean.setSiret(fournisseur.getFournSiret());
 		return bean;
 	}
-	private List<ProduitBean> prepareListofBean(List<Produit> produits){
+	private List<ProduitBean> prepareListofBeanProduit(List<Produit> produits){
 		List<ProduitBean> beans = null;
 		if(produits != null && !produits.isEmpty()){
 			beans = new ArrayList<ProduitBean>();
@@ -80,5 +100,34 @@ public class CommandeController {
 			}
 		}
 		return beans;
+	}
+	private List<PanierBean> prepareListofBeanPanier(List<Panier> paniers){
+		List<PanierBean> beans = null;
+		if(paniers != null && !paniers.isEmpty()){
+			beans = new ArrayList<PanierBean>();
+			PanierBean bean = null;
+			for(Panier panier : paniers){
+				bean = new PanierBean();
+				bean.setNumUtilisateurb(panier.getNumUtilisateur());
+				bean.setCodeProduitpb(panier.getCodeProduitp());
+				bean.setDesignationpb(panier.getDesignationp());
+				bean.setpAchatpb(panier.getpAchatp());
+				bean.setpVentepb(panier.getpVentep());
+				bean.setQuantitepb(panier.getQuantitep());
+				beans.add(bean);
+			}
+		}
+		return beans;
+	}
+	private Panier prepareModel(PanierBean panierBean){
+		Panier panier = new Panier();
+		panier.setNumUtilisateur(panierBean.getNumUtilisateurb());
+		panier.setCodeProduitp(panierBean.getCodeProduitpb());
+		panier.setDesignationp(panierBean.getDesignationpb());
+		panier.setpAchatp(panierBean.getpAchatpb());
+		panier.setpVentep(panierBean.getpVentepb());
+		panier.setQuantitep(panierBean.getQuantitepb());
+		panier.setNumUtilisateur(null);
+		return panier;
 	}
 }

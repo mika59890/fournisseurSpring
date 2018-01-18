@@ -1,13 +1,37 @@
 package com.mika.model;
 
-public class Panier {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="panier")
+public class Panier implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "idUtilisateur")
 	private Integer numUtilisateur;
+	@Column(name = "codeProduit")
 	private Integer codeProduitp;
+	@Column(name = "designation")
 	private String designationp;
+	@Column(name = "prixachatunitaire")
 	private double pAchatp;
+	@Column(name = "pventep")
 	private double pVentep;
+	@Column(name = "quantite")
 	private Integer quantitep;
+	
 	public Integer getNumUtilisateur() {
 		return numUtilisateur;
 	}

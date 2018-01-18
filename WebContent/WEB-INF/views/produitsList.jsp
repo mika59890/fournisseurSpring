@@ -28,10 +28,6 @@
 							<td <c:if test="${produit.fournisseurb == fournisseur.idF}"> title="${fournisseur.idF}"</c:if>><c:out value="${produit.fournisseurb}"/> </td>
 							<td><a class="noir" href="editP.html?codeProduitb=${produit.codeProduitb}">Détails</a> | <a class="noir" href="panier.html?codeProduitb=${produit.codeProduitb}">Commander</a> </td>
 						</tr>
-						<c:if test="${produit.fournisseurb == fournisseur.idF}">
-						bonjour
-						</c:if>
-						
 					</c:forEach>
 				</c:if>	
 			</table>
