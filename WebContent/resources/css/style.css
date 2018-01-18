@@ -74,6 +74,9 @@ caption{
 	font-weight: bold;
     color: #0568CD;
 }
+td a{
+	text-decoration: none;
+}
 /*EN-TETE*/
 header {
 	background-color:#c0c0c0;

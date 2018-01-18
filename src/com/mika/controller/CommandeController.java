@@ -29,6 +29,9 @@ public class CommandeController {
 	@Autowired
 	private FournisseurService fournisseurService;
 	
+	//@Autowired
+	//private CommandeService commandeService;
+	
 	@RequestMapping(value="/editProduitFournisseur", method = RequestMethod.GET)
 	public ModelAndView listProduitsParFournisseur(@ModelAttribute("fournisseurBean") FournisseurBean fournisseurBean,
 			BindingResult result) {
@@ -36,6 +39,10 @@ public class CommandeController {
 		model.put("fournisseur", prepareFournisseurBean(fournisseurService.getFournisseur(fournisseurBean.getIdF())));
 		model.put("produits",  prepareListofBean(produitService.listProduits()));
 		return new ModelAndView("produitsListFournisseur",model);
+	}
+	@RequestMapping(value="/editCommande", method = RequestMethod.GET)
+	public ModelAndView affichageCommande() {
+		return new ModelAndView("commande");
 	}
 	
 	private FournisseurBean prepareFournisseurBean(Fournisseur fournisseur){

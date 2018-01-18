@@ -13,22 +13,20 @@
 					<th class="bleu">Désignation</th>
 					<th class="bleu">Prix d'achat</th>
 					<th class="bleu">Prix de vente</th>
+					<th class="bleu">Quantité</th>
 					<th class="bleu">Actions</th>
 				</tr>
 				
-				<c:if test="${!empty produits}">
-					<c:forEach items="${produits}" var="produit">
-						<c:if test="${produit.fournisseurb == fournisseur.idF}">
-							<tr>
-								<td><c:out value="${produit.codeProduitb}"/></td>
-								<td><c:out value="${produit.designationb}"/></td>
-								<td><c:out value="${produit.pAchatb}"/></td>
-								<td><c:out value="${produit.pVenteb}"/></td>
-								<td><a class="noir" href="panier.html?codeProduitb=${produit.codeProduitb}">Commander</a></td>
-							</tr>
-						</c:if>	
+				<c:forEach items="${produits}" var="produit">
+						<tr>
+							<td><c:out value="${produit.codeProduitb}"/></td>
+							<td><c:out value="${produit.designationb}"/></td>
+							<td><c:out value="${produit.pAchatb}"/></td>
+							<td><c:out value="${produit.pVenteb}"/></td>
+							<td><input type="number" value=""></td>
+							<td><a class="noir" href="editCommande.html?codeProduitb=${produit.codeProduitb}">Commander</a></td>
+						</tr>
 					</c:forEach>
-				</c:if>	
 			</table>
 	</body>
 </html>
