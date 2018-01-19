@@ -20,17 +20,19 @@
 				<c:forEach items="${produits}" var="produit">
 					<c:if test="${fournisseur.idF == produit.fournisseurb}">
 						<tr>
-						<form:form method="POST" modelAttribute="panier" action="savePanier.html">
+						
 							<td><c:out value="${produit.codeProduitb}"/></td>
 							<td><c:out value="${produit.designationb}"/></td>
 							<td><c:out value="${produit.pAchatb}"/></td>
 							<td><c:out value="${produit.pVenteb}"/></td>
-							<td><input type="number" value="" id="quantite"></td>
-							<td><input type="submit" value="ajouter au panier"></td>
-						</form:form>	
+							
+							
 						</tr>
+						
 					</c:if>	
 					</c:forEach>
+					
 			</table>
+			
 	</body>
 </html>

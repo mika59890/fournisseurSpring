@@ -41,7 +41,7 @@ public class CommandeController {
 		
 		if (result.hasErrors()) {
             //Traitement de l'erreur
-			return new ModelAndView("redirect:/panier.html");
+			return new ModelAndView("redirect:/ajoutPanier.html");
        }
 		System.out.println(panierBean.getCodeProduitpb());
 		

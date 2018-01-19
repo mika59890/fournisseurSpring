@@ -12,20 +12,15 @@
 
                 <label for="nom">Adresse email <span class="requis">*</span></label>
                 <input type="email" id="email" name="email" value="<c:out value="${employee.email}"/>" size="20" maxlength="60" />
-                <span class="erreur">${form.erreurs['email']}</span>
                 <br />
 
                 <label for="password">Mot de passe <span class="requis">*</span></label>
                 <input type="password" id="password" name="password"  size="20" maxlength="20" />
-                <span class="erreur">${form.erreurs['password']}</span>
                 <br />
 
                 <input type="submit" value="Connexion" class="sansLabel" />
                 <br />
-                
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-                
-                
+          
             </fieldset>
         </form>
     </body>
