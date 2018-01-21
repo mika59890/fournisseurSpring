@@ -1,9 +1,7 @@
 package com.mika.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +30,7 @@ public class ConnexionController {
     private static final String CHAMP_PASS   = "password";
     private String              resultat;
     private Map<String, String> erreurs      = new HashMap<String, String>();
+    int idU;
   
     public Map<String, String> getErreurs() {
         return erreurs;
@@ -65,8 +64,7 @@ public class ConnexionController {
 		employee.setEmpPassword(employeeBean.getPassword());
 		String email = getValeurChamp(employee.getEmpEmail());
 		String password = getValeurChamp(employee.getEmpPassword());
-		
-		
+        
 		/* Validation du champ email. */
         try {
         	
@@ -81,14 +79,13 @@ public class ConnexionController {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
         try {
-            emailExist(email);
+            emailExist(email,password,request);
         } catch ( Exception e ) {
             setErreur( "emailValide", e.getMessage() );
         }
 		if ( erreurs.isEmpty()) {
-			HttpSession session = request.getSession();
-			session.setAttribute( "sessionEmail", employee );
-            return new ModelAndView("accueil"," ",employee);
+			
+            return new ModelAndView("accueil");
         } else {
             resultat = "Échec de la connexion.";
         }
@@ -102,16 +99,33 @@ public class ConnexionController {
             return nomChamp;
         }
     }
-	private void emailExist(String email) throws Exception{
+	private void emailExist(String email,String password,HttpServletRequest request) throws Exception{
+		String empl;
+		String passw;
+		boolean ok = false;
 		ArrayList<EmployeeBean> arraylist = new ArrayList<EmployeeBean>();
 		arraylist.addAll( prepareListofBean(employeeService.listEmployeess()));
-		ArrayList<String> a = new ArrayList<String>();
 		for(EmployeeBean emp : arraylist){
-			a.add(emp.getEmail());
+			empl = emp.getEmail().toString();
+			passw = emp.getPassword().toString();
+			if(empl.equals(email)){
+				if(passw.equals(password)) {
+					Employee employe = new Employee();
+					employe.setEmpNom(emp.getNom());
+					employe.setEmpEmail(emp.getEmail());
+					employe.setEmpPassword(emp.getPassword());
+					employe.setEmpId(emp.getId());
+					HttpSession session = request.getSession();
+					session.setAttribute( "sessionUtilisateur", employe );
+					ok = true;
+				}
+			}
 		}
-		if(email != null && !a.contains(email)){
+		
+		if( ok == false){
 			throw new Exception("L'adresse mail saisie n'est pas enregistrée.");
 		}
+		
 	}
 	private void validationEmail( String email ) throws Exception {
 		
@@ -130,6 +144,14 @@ public class ConnexionController {
             throw new Exception( "Merci de saisir votre mot de passe." );
         }
     }
+	private EmployeeBean prepareEmployeeBean(Employee employee){
+		EmployeeBean bean = new EmployeeBean();
+		bean.setNom(employee.getEmpNom());
+		bean.setNom(employee.getEmpEmail());
+		bean.setPassword(employee.getEmpPassword());
+		bean.setId(employee.getEmpId());
+		return bean;
+	}
 	private List<EmployeeBean> prepareListofBean(List<Employee> employees){
 		List<EmployeeBean> beans = null;
 		if(employees != null && !employees.isEmpty()){

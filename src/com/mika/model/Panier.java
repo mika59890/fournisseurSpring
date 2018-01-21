@@ -35,8 +35,8 @@ public class Panier implements Serializable{
 	public Integer getNumUtilisateur() {
 		return numUtilisateur;
 	}
-	public void setNumUtilisateur(Integer numUtilisateur) {
-		this.numUtilisateur = numUtilisateur;
+	public void setNumUtilisateur(Integer string) {
+		this.numUtilisateur = string;
 	}
 	public Integer getCodeProduitp() {
 		return codeProduitp;

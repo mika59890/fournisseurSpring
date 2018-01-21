@@ -30,7 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee getEmployee(int empid) {
 		return employeeDao.getEmployee(empid);
 	}
-	
+	public Employee getEmpl(String email) {
+		return employeeDao.getEmpl(email);
+	}
 	public void deleteEmployee(Employee employee) {
 		employeeDao.deleteEmployee(employee);
 	}

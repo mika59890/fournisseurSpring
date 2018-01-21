@@ -19,13 +19,16 @@
 				
 				<c:forEach items="${produits}" var="produit">
 					<c:if test="${fournisseur.idF == produit.fournisseurb}">
+						
 						<tr>
 						
 							<td><c:out value="${produit.codeProduitb}"/></td>
 							<td><c:out value="${produit.designationb}"/></td>
 							<td><c:out value="${produit.pAchatb}"/></td>
 							<td><c:out value="${produit.pVenteb}"/></td>
-							
+							<td><input type="number" name="quantite" id="quantite" value=""/></td>
+							<td><a class="noir" href="savePanier.html?codeProduitb=${produit.codeProduitb}&designationb=${produit.designationb}"
+							>Ajouter au panier</a></td>
 							
 						</tr>
 						

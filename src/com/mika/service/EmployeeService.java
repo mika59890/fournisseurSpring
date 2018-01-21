@@ -12,6 +12,8 @@ public interface EmployeeService {
 	public List<Employee> listEmployeess();
 	
 	public Employee getEmployee(int empid);
+
+	public Employee getEmpl(String email);
 	
 	public void deleteEmployee(Employee employee);
 }

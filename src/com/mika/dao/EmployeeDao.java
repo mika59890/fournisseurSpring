@@ -14,4 +14,7 @@ public interface EmployeeDao {
 	public Employee getEmployee(int empid);
 	
 	public void deleteEmployee(Employee employee);
+
+	public Employee getEmpl(String email);
+
 }

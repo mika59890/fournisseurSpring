@@ -3,6 +3,7 @@ package com.mika.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public Employee getEmployee(int empid) {
 		return (Employee) sessionFactory.getCurrentSession().get(Employee.class, empid);
 	}
-
+	public Employee getEmpl(String email) {
+		return (Employee) sessionFactory.getCurrentSession().createCriteria(Employee.class).add(Restrictions.eq("empEmail", email)).list();
+	}
 	public void deleteEmployee(Employee employee) {
 		sessionFactory.getCurrentSession().createQuery("DELETE FROM Employee WHERE idUtilisateur = "+employee.getEmpId()).executeUpdate();
 	}

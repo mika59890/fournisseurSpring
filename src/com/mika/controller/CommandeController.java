@@ -35,17 +35,17 @@ public class CommandeController {
 	@Autowired
 	private PanierService panierService;
 	
-	@RequestMapping(value = "/savePanier", method = RequestMethod.POST)
+	@RequestMapping(value = "/savePanier", method = RequestMethod.GET)
 	public ModelAndView savePanier(@ModelAttribute("panier") PanierBean panierBean, 
 			BindingResult result) {
 		
 		if (result.hasErrors()) {
             //Traitement de l'erreur
-			return new ModelAndView("redirect:/ajoutPanier.html");
+			return new ModelAndView("redirect:/fournisseursList.html");
        }
 		System.out.println(panierBean.getCodeProduitpb());
-		
 		Panier panier = prepareModel(panierBean);
+		System.out.println(panier.getCodeProduitp());
 		panierService.addPanier(panier);
 		return new ModelAndView("redirect:/ajoutPanier.html");
 	}
@@ -68,6 +68,16 @@ public class CommandeController {
 	@RequestMapping(value="/editCommande", method = RequestMethod.GET)
 	public ModelAndView affichageCommande() {
 		return new ModelAndView("commande");
+	}
+	private PanierBean preparePanierBean(Panier panier){
+		PanierBean bean = new PanierBean();
+		bean.setNumUtilisateurb(panier.getNumUtilisateur());
+		bean.setCodeProduitpb(panier.getCodeProduitp());
+		bean.setDesignationpb(panier.getDesignationp());
+		bean.setpAchatpb(panier.getpAchatp());
+		bean.setpVentepb(panier.getpVentep());
+		bean.setQuantitepb(panier.getQuantitep());
+		return bean;
 	}
 	
 	private FournisseurBean prepareFournisseurBean(Fournisseur fournisseur){
