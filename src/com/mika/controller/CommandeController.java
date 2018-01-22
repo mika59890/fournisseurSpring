@@ -35,7 +35,7 @@ public class CommandeController {
 	@Autowired
 	private PanierService panierService;
 	
-	@RequestMapping(value = "/savePanier", method = RequestMethod.GET)
+	@RequestMapping(value = "/savePanier", method = RequestMethod.POST)
 	public ModelAndView savePanier(@ModelAttribute("panier") PanierBean panierBean, 
 			BindingResult result) {
 		
@@ -51,7 +51,7 @@ public class CommandeController {
 	}
 	
 	@RequestMapping(value="/editProduitFournisseur", method = RequestMethod.GET)
-	public ModelAndView listProduitsParFournisseur(@ModelAttribute("fournisseurBean") FournisseurBean fournisseurBean,
+	public ModelAndView listProduitsParFournisseur(@ModelAttribute("command") FournisseurBean fournisseurBean,
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("fournisseur", prepareFournisseurBean(fournisseurService.getFournisseur(fournisseurBean.getIdF())));

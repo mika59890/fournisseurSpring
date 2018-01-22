@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		<c:import url="inc/header.jsp"/>
+		<form:form method="POST"  action="savePanier.html">
 			<table>
 				<caption class="bleu">Liste produits <c:out value="${fournisseur.enseigne}"/></caption>
 				<tr>
@@ -22,13 +23,12 @@
 						
 						<tr>
 						
-							<td><c:out value="${produit.codeProduitb}"/></td>
-							<td><c:out value="${produit.designationb}"/></td>
-							<td><c:out value="${produit.pAchatb}"/></td>
-							<td><c:out value="${produit.pVenteb}"/></td>
-							<td><input type="number" name="quantite" id="quantite" value=""/></td>
-							<td><a class="noir" href="savePanier.html?codeProduitb=${produit.codeProduitb}&designationb=${produit.designationb}"
-							>Ajouter au panier</a></td>
+							<td><form:input type="text" path="codeProduitpb" value="${produit.codeProduitb}" readonly="true"/></td>
+							<td><form:input type="text" path="designationpb" value="${produit.designationb}" readonly="true"/></td>
+							<td><form:input type="text" path="pAchatpb" value="${produit.pAchatb}" readonly="true"/></td>
+							<td><form:input type="text" path="pVentepb" value="${produit.pVenteb}" readonly="true"/></td>
+							<td><form:input type="number" path="quantitepb" name="quantite" id="quantite" value=""/></td>
+							<td><input type="submit" value="Ajouter au panier"></td>
 							
 						</tr>
 						
@@ -36,6 +36,6 @@
 					</c:forEach>
 					
 			</table>
-			
+		</form:form>
 	</body>
 </html>
