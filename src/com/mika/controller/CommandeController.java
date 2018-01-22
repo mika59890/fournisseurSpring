@@ -51,7 +51,7 @@ public class CommandeController {
 	}
 	
 	@RequestMapping(value="/editProduitFournisseur", method = RequestMethod.GET)
-	public ModelAndView listProduitsParFournisseur(@ModelAttribute("command") FournisseurBean fournisseurBean,
+	public ModelAndView listProduitsParFournisseur(@ModelAttribute("produit") ProduitBean produitBean,FournisseurBean fournisseurBean, 
 			BindingResult result) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("fournisseur", prepareFournisseurBean(fournisseurService.getFournisseur(fournisseurBean.getIdF())));
