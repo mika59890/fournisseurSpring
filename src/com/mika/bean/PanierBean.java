@@ -2,18 +2,18 @@ package com.mika.bean;
 
 public class PanierBean {
 	
-	private Integer numUtilisateurb;
+	private String numUtilisateurb;
 	private Integer codeProduitpb;
 	private String designationpb;
 	private double pAchatpb;
 	private double pVentepb;
 	private Integer quantitepb;
 	
-	public Integer getNumUtilisateurb() {
+	public String getNumUtilisateurb() {
 		return numUtilisateurb;
 	}
-	public void setNumUtilisateurb(Integer numUtilisateurb) {
-		this.numUtilisateurb = numUtilisateurb;
+	public void setNumUtilisateurb(String string) {
+		this.numUtilisateurb = string;
 	}
 	public Integer getCodeProduitpb() {
 		return codeProduitpb;

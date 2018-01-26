@@ -20,7 +20,7 @@ public class Panier implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "idUtilisateur")
-	private Integer numUtilisateur;
+	private String numUtilisateur;
 	@Column(name = "codeProduit")
 	private Integer codeProduitp;
 	@Column(name = "designation")
@@ -32,10 +32,10 @@ public class Panier implements Serializable{
 	@Column(name = "quantite")
 	private Integer quantitep;
 	
-	public Integer getNumUtilisateur() {
+	public String getNumUtilisateur() {
 		return numUtilisateur;
 	}
-	public void setNumUtilisateur(Integer string) {
+	public void setNumUtilisateur(String string) {
 		this.numUtilisateur = string;
 	}
 	public Integer getCodeProduitp() {

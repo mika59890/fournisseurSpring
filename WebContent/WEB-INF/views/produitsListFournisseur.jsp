@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<c:import url="inc/header.jsp"/>
-		<form:form method="POST"  modelAttribute="produit"  action="savePanier.html">
+		
 			<table>
 				<caption class="bleu">Liste produits <c:out value="${fournisseur.enseigne}"/></caption>
 				<tr>
@@ -19,25 +19,24 @@
 				</tr>
 				
 				<c:forEach items="${produits}" var="produit">
-			
+				<form action="savePanier.html" method="GET">
 					<c:if test="${fournisseur.idF == produit.fournisseurb}">
 						
 						<tr>
-						
-							<td><form:input type="text" path="codeProduitb" value="${produit.codeProduitb}" readonly="true"/></td>
-							<td><form:input type="text" path="designationb" value="${produit.designationb}" readonly="true"/></td>
-							<td><form:input type="text" path="pAchatb" value="${produit.pAchatb}" readonly="true"/></td>
-							<td><form:input type="text" path="pVenteb" value="${produit.pVenteb}" readonly="true"/></td>
-					
+							<td><input type="text" name="codeProduit" value="${produit.codeProduitb}"/></td>
+							<td><input type="text" name="designation" value="${produit.designationb}"/></td>
+							<td><input type="text" name="prixAchat" value="${produit.pAchatb}"/></td>
+							<td><input type="text" name="prixVente" value="${produit.pVenteb}"/></td>
+							<td><input type="number" name="quantite"  value=""/></td>
 							<td><input type="submit" value="Ajouter au panier"></td>
 							
 						</tr>
 						
 					</c:if>	
-			
+				</form>
 					</c:forEach>
 					
 			</table>
-		</form:form>
+			
 	</body>
 </html>

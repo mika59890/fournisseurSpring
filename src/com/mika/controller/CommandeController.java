@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mika.bean.FournisseurBean;
 import com.mika.bean.PanierBean;
 import com.mika.bean.ProduitBean;
+import com.mika.model.Employee;
 import com.mika.model.Fournisseur;
 import com.mika.model.Panier;
 import com.mika.model.Produit;
@@ -35,19 +39,27 @@ public class CommandeController {
 	@Autowired
 	private PanierService panierService;
 	
-	@RequestMapping(value = "/savePanier", method = RequestMethod.POST)
-	public ModelAndView savePanier(@ModelAttribute("panier") PanierBean panierBean, 
+	@RequestMapping(value = "/savePanier", method = RequestMethod.GET)
+	public ModelAndView savePanier(@ModelAttribute("panier")ProduitBean produitBean, PanierBean panierBean, HttpServletRequest request,
 			BindingResult result) {
 		
 		if (result.hasErrors()) {
             //Traitement de l'erreur
 			return new ModelAndView("redirect:/fournisseursList.html");
        }
-		System.out.println(panierBean.getCodeProduitpb());
-		Panier panier = prepareModel(panierBean);
-		System.out.println(panier.getCodeProduitp());
-		panierService.addPanier(panier);
-		return new ModelAndView("redirect:/ajoutPanier.html");
+		String quantite = request.getParameter("quantite");
+		Integer q = Integer.parseInt(quantite);
+		Panier panier = prepareModel(request);
+		HttpSession sessio = request.getSession();
+		Map<String, Panier> paniers = (HashMap<String, Panier>) sessio.getAttribute( "paniers" );
+		if(paniers == null){
+			paniers =  new HashMap<String, Panier>();
+		}
+		
+		
+		paniers.put(panier.getDesignationp(),panier);
+		sessio.setAttribute("paniers", paniers);
+		return new ModelAndView("panier");
 	}
 	
 	@RequestMapping(value="/editProduitFournisseur", method = RequestMethod.GET)
@@ -129,15 +141,23 @@ public class CommandeController {
 		}
 		return beans;
 	}
-	private Panier prepareModel(PanierBean panierBean){
+	private Panier prepareModel(HttpServletRequest request ){
+		String designation = request.getParameter("designation");
+		String codeProduit = request.getParameter("codeProduit");
+		String prixAchat = request.getParameter("prixAchat");
+		String prixVente = request.getParameter("prixVente");
+		String quantite = request.getParameter("quantite");
+		Integer code = Integer.parseInt(codeProduit);
+		double achat = Double.parseDouble(prixAchat);
+		double vente = Double.parseDouble(prixVente);
+		Integer q = Integer.parseInt(quantite);
 		Panier panier = new Panier();
-		panier.setNumUtilisateur(panierBean.getNumUtilisateurb());
-		panier.setCodeProduitp(panierBean.getCodeProduitpb());
-		panier.setDesignationp(panierBean.getDesignationpb());
-		panier.setpAchatp(panierBean.getpAchatpb());
-		panier.setpVentep(panierBean.getpVentepb());
-		panier.setQuantitep(panierBean.getQuantitepb());
-		panier.setNumUtilisateur(null);
+		panier.setCodeProduitp(code);
+		panier.setDesignationp(designation);
+		panier.setpAchatp(achat);
+		panier.setpVentep(vente);
+		panier.setQuantitep(q);
+		//panier.setNumUtilisateur(null);
 		return panier;
 	}
 }

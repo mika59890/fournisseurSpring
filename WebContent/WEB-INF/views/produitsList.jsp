@@ -19,6 +19,7 @@
 				</tr>
 				<c:if test="${!empty produits}">
 					<c:forEach items="${produits}" var="produit">
+						
 						<tr>
 							<td><c:out value="${produit.codeProduitb}"/></td>
 							<td><c:out value="${produit.designationb}"/></td>
